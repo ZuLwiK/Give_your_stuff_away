@@ -3,6 +3,7 @@ package pl.zulwik.give_your_stuff_away.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "institutions")
-public class Institution {
+@Table(name = "roles")
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +22,8 @@ public class Institution {
     @NotBlank
     private String name;
 
-    @NotBlank
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 }
